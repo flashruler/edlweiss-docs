@@ -6,7 +6,7 @@ Admin routes (`/admin/*`) are protected by a shared password instead of external
 
 ### Environment Variables
 
-Set both values and keep them identical:
+Set both values and keep identical:
 
 ```bash
 # Frontend (Vite)
