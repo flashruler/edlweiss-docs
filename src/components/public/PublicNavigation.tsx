@@ -102,7 +102,7 @@ const PublicNavigation = () => {
   }, [activeProjectId, navigate, projects]);
 
   return (
-    <aside className="w-64 flex h-full flex-col border-r border-slate-200 bg-slate-50">
+    <aside className="flex h-full w-full flex-col border-r border-slate-200 bg-slate-50">
       <div className="border-b border-slate-200 p-3">
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Browse</p>
       </div>

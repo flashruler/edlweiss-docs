@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "convex/react";
-import { Search } from "lucide-react";
+import { PanelLeftClose, PanelLeftOpen, Search } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
@@ -7,6 +7,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAdminAccess } from "@/contexts/useAdminAccess";
+import { usePublicSidebar } from "@/contexts/usePublicSidebar";
 
 interface TopNavigationProps {
   mode: "admin" | "public";
@@ -16,6 +17,7 @@ const TopNavigation = ({ mode }: TopNavigationProps) => {
   const navigate = useNavigate();
   const params = useParams();
   const { adminPassword, lock } = useAdminAccess();
+  const { isCollapsed, toggleCollapsed } = usePublicSidebar();
   const createProject = useMutation(api.projects.create);
 
   const adminProjects = useQuery(
@@ -55,6 +57,18 @@ const TopNavigation = ({ mode }: TopNavigationProps) => {
     <header className="border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="flex h-14 items-center justify-between gap-3 px-4 md:px-6">
         <div className="flex min-w-0 items-center gap-3">
+          {mode === "public" ? (
+            <Button
+              type="button"
+              size="icon-sm"
+              variant="ghost"
+              aria-label={isCollapsed ? "Expand document menu" : "Collapse document menu"}
+              aria-expanded={!isCollapsed}
+              onClick={toggleCollapsed}
+            >
+              {isCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+            </Button>
+          ) : null}
           <div className="shrink-0 rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-sm font-semibold text-slate-700">
             Edlweiss Docs
           </div>
