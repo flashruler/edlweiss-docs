@@ -1,5 +1,43 @@
 # React + TypeScript + Vite
 
+## Admin Password Protection
+
+Admin routes (`/admin/*`) are protected by a shared password instead of external auth.
+
+### Environment Variables
+
+Set both values and keep them identical:
+
+```bash
+# Frontend (Vite)
+VITE_ADMIN_PASSWORD=change-me
+
+# Convex backend environment
+ADMIN_PASSWORD=change-me
+```
+
+`VITE_ADMIN_PASSWORD` is used by the client unlock form.
+`ADMIN_PASSWORD` is used by Convex `requireAdmin` checks.
+
+### Local Setup
+
+1. Add `VITE_ADMIN_PASSWORD` to `.env.local`.
+2. Set `ADMIN_PASSWORD` in Convex environment settings.
+3. Restart Vite and Convex processes after changing env values.
+
+### Runtime Behavior
+
+1. Visiting `/admin` shows a password prompt.
+2. Correct password unlocks admin access for the current browser session only.
+3. Closing the browser clears the admin session and requires re-entry.
+4. Admin queries and mutations are denied by Convex when password is invalid or missing.
+
+### Security Note
+
+This is a shared-secret gate suitable for lightweight internal/admin workflows.
+For stronger production security with user identity, auditability, and per-user revocation,
+use a real authentication provider.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
